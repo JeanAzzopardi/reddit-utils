@@ -70,7 +70,8 @@ Get trending
 Issues
 ======
 
-Maybe.
+ - Changing the gnuplot output dimensions only changes the width at the 
+   moment.
 
 
 Wishlist/Todo
@@ -88,6 +89,7 @@ import urllib
 import time
 import os
 import sys
+import re
 from subprocess import check_call
 from optparse import OptionParser
 
@@ -338,9 +340,9 @@ if __name__ == "__main__":
             PLOT_ONLY_TOTAL = True
 
         if options.dimensions:
-            if re.match("^\dx\d$", options.dimensions):
-                PLOT_DIMENSIONS = options.dimensions
-                echo("changed dimensions to %r" % PLOT_DIMENSIONS)
+            if re.match("^\d+x\d+$", options.dimensions):
+                PLOT_DIMENSIONS = ','.join(options.dimensions.split("x"))
+                echo("using dimensions %s" % PLOT_DIMENSIONS)
 
             else:
                 echo("invalid dimensions %r" % options.dimensions)
