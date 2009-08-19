@@ -127,6 +127,7 @@ VERBOSE = False
 TIME_FMT = "%F %R"
 SUMMARY_FMT = "USERNAME(LINK_KARMA, COMMENT_KARMA)\n"
 PLOT_ONLY_TOTAL = False
+PLOT_FILE = os.path.join(CACHE_DIR, 'karma.p')
 
 GNUPLOT_CONFIG = '''set xlabel "Date"
 set ylabel "Karma"
@@ -171,11 +172,9 @@ def gnuplot_user(users):
 
     if len(users) == 1:
         title = "%s's karma on reddit.com" % users[0]
-        plotfile = "%s-karma.p" % users[0]
 
     else:
-        title = "karma compaison (%s)" % ', '.join(users)
-        plotfile = "%s-comparison.p" % '-'.join(users)
+        title = "karma comparison (%s)" % ', '.join(users)
 
     plotfmt = "%r using %s title %r with linespoints"
     plots = [] 
@@ -193,14 +192,13 @@ def gnuplot_user(users):
     plot = ', '.join([plotfmt % t for t in plots])
     
     ext = os.path.splitext(PLOT_OUTPUT)[-1].strip('.').lower()
-    plotfile = os.path.join(CACHE_DIR, plotfile)
     plotconf = GNUPLOT_CONFIG % (ext, PLOT_DIMENSIONS,
       PLOT_OUTPUT, title, plot)   
 
-    f = open(plotfile, 'w')
+    f = open(PLOT_FILE, 'w')
     f.write(plotconf)
     f.close()
-    check_call(['gnuplot', plotfile])
+    check_call(['gnuplot', PLOT_FILE])
    
 
 def make_user_summary(user):
