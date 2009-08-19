@@ -44,16 +44,39 @@ Find the latest version of the script here:
   http://github.com/mason-larobina/reddit-utils/tree/master
 
 
+Get trending
+============
+
+1. Tell the script which users you would like to follow with:
+  
+  redditkarma.py -k mason-l mr_dbr Ilyanep
+
+2. Add this to an hourly/daily/monthly cron to build karma trends
+
+  redditkarma.py -ak
+
+3. After some trends have been built up print some plots:
+
+  redditkarma.py -ap         # plot all users karma trends.
+  redditkarma.py -p mason-l  # only plot mason-l's trend data.
+
+4. See the full list of command line options and experiment:
+
+  redditkarma.py -h
+
+5. Contribute!
+
+
 Issues
 ======
 
 Maybe.
 
 
-Wishlist
-========
+Wishlist/Todo
+=============
 
- - Other graphing types (where applicable).
+ - Allow other graphing types (but what types?).
  - Command line option to perform some statistical analysis on a users
    trending data (most grown in shortest period, number of points, etc).
  - Code could do with some more comments explaining whats happening.
